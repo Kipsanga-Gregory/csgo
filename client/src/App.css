@@ -1,0 +1,46 @@
+.App {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: #16a085;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.domainInput {
+    height: 35px;
+    width: 250px;
+    border-style: transparent;
+}
+.SubmitButton {
+    /* border: 1px solid snow; */
+    background-color: pink;
+    width: 120px;
+    text-align: center;
+    color: snow;
+    height: 42px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
