@@ -1,9 +1,12 @@
 
 body{
-    background: #012d2c;
-    min-height: 100vh;
+    background-image: url("./Images/2.png");
+    min-height: 100%;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
+    background-size: cover;
+    background-repeat:   no-repeat;
  
 }
 .form{
@@ -16,14 +19,15 @@ body{
 }
 .navbar{
     display: flex;
-    /* flex-direction: column; */
-    /* justify-self: start; */
     min-height: 10vh;
+    justify-content: center;
+    margin-top: 10px;
 }
 header{
     display: flex;
     justify-self: center;
     color: antiquewhite;
+    justify-content: center;
     font-size: x-large;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-seriff;
     font-weight: 1000;
@@ -44,8 +48,14 @@ header{
     display: flex;
     justify-content: center;
     padding: 4px;
-    text-align: center;   
+    text-align: center; 
+    border: 1px solid transparent; 
 }
+.testdomain:focus {
+    outline: none !important;
+    border:1px solid rgb(7, 107, 7);
+    box-shadow: 0 0 10px #719ECE;
+  }
 .button{
     width:110px;
     height: 3.2em;
@@ -73,7 +83,7 @@ header{
 .message{
     display: flex;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: antiquewhite;
+    color: white;
     font-size: 50px;
     font-weight: 600;
     display: flex;
