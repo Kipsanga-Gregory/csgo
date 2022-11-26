@@ -1,10 +1,8 @@
 import logo from './logo.svg'
 import './App.css'
 import { useEffect, useState } from 'react'
-// User sends duplicated domain name (meaning this domain has been sent already before)
+
 // Check for spam from user (if they send a lot in short period of time)                    DONEDONE
-// Give error if user sends domain with invalid words (like swear words)                    DONEDONE
-//Check if Iframe script is submitted
 function App() {
     let swearWords = ['spider', 'monkey', 'pig']
     const [domain, setDomain] = useState('')
@@ -18,13 +16,22 @@ function App() {
         )
         return words
     }
-    function isDomain(arg) {
-        let regexDomain =
-            /^(?:(?:(?:[a-zA-z\-]+)\:\/{1,3})?(?:[a-zA-Z0-9])(?:[a-zA-Z0-9\-\.]){1,61}(?:\.[a-zA-Z]{2,})+|\[(?:(?:(?:[a-fA-F0-9]){1,4})(?::(?:[a-fA-F0-9]){1,4}){7}|::1|::)\]|(?:(?:[0-9]{1,3})(?:\.[0-9]{1,3}){3}))(?:\:[0-9]{1,5})?/
-        if (arg.match(regexDomain)) {
-            return true
+
+    function isValidURL(string) {
+        const res = string.match(
+            /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+        )
+        return res !== null
+    }
+
+    function absolute_url(url) {
+        const patternS = /^https:\/\//i
+        const pattern = /^http:\/\//i
+
+        if (pattern.test(url) || patternS.test(url)) {
+            console.log('Valid url')
         } else {
-            return false
+            console.log('Invalid url')
         }
     }
 
@@ -32,12 +39,13 @@ function App() {
         if (filterSwearWords(domain)[0]) {
             setSwearWord(filterSwearWords(domain).join(', '))
         }
-        if (!isDomain(domain)) {
+        if (!isValidURL(domain)) {
             console.log('Domain not valid')
             setValidDomain(false)
         } else {
             console.log('Domain is valid')
             setValidDomain(true)
+            absolute_url(domain)
         }
     }, [domain])
 
