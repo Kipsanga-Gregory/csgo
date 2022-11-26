@@ -1,10 +1,10 @@
-import logo from './logo.svg'
 import './App.css'
 import { useEffect, useState } from 'react'
 import { filterSwearWords, absolute_url, isValidURL, reportUrl } from './functions/helpers'
 
-const botHumanThreshold = 3
-const timeBeforeTrial = 60
+const botHumanThreshold = Number(process.env.REACT_APP_BOT_HUMAN_THRESHOLD)
+const timeBeforeTrial = Number(process.env.REACT_APP_TIME_BEFORE_NEXT_TRIAL)
+
 let interval
 
 function App() {
@@ -18,9 +18,15 @@ function App() {
     const [count, setCount] = useState(0)
     const [abuse, setAbuse] = useState(false)
     const [countDown, setCountDown] = useState(timeBeforeTrial)
+    const [selfReporting, setSelfReported] = useState(false)
 
     useEffect(() => {
         setErrors('')
+        if (domain === 'http://csgoreports.net' || domain === 'https://csgoreports.net') {
+            setSelfReported(true)
+        } else {
+            setSelfReported(false)
+        }
         if (!absolute_url(domain)) {
             setAbsolute(false)
         } else {
@@ -85,50 +91,56 @@ function App() {
 
     return (
         <div className='container'>
-            <div class='navbar'>{/* <header> CSGO Report</header> */}</div>
+            <div className='navbar'>{/* <header> CSGO Report</header> */}</div>
             {loading ? (
-                <div class='main'>
-                    <div class='message'>
-                        <div class='loader'>
-                            <div class='inner one'></div>
-                            <div class='inner two'></div>
-                            <div class='inner three'></div>
+                <div className='main'>
+                    <div className='message'>
+                        <div className='loader'>
+                            <div className='inner one'></div>
+                            <div className='inner two'></div>
+                            <div className='inner three'></div>
                         </div>
                     </div>
-                    <div class='message'>Adding the domain to blacklist, please wait ...</div>
+                    <div className='message'>Adding the domain to blacklist, please wait ...</div>
                 </div>
             ) : (
-                <div class='main'>
-                    <div class='message'>
+                <div className='main'>
+                    <div className='message'>
                         <p>Report a domain involved in phishing or any other illegalities</p>
                     </div>
-                    <div class='form'>
-                        <form action='' class='form'>
+                    <div className='form'>
+                        <form action='' className='form'>
                             <input
+                                defaultValue={domain}
                                 type='text'
                                 placeholder='Enter Domain Name...'
-                                class='testdomain'
+                                className='testdomain'
                                 onChange={(e) => setDomain(e.target.value)}
                             />
 
-                            <button value='Submit' class='button' onClick={(e) => submitDomain(e)}>
+                            <button value='Submit' className='button' onClick={(e) => submitDomain(e)}>
                                 {' '}
                                 Submit{' '}
                             </button>
                         </form>
                     </div>
                     <div className='infoSection'>
-                        {success && <div style={{ color: 'yellow' }}>Domain reported successfully.</div>}
+                        {success && <div className='spanYellow'>Domain reported successfully.</div>}
                         {errors && <div>* {errors}</div>}
+                        {selfReporting && (
+                            <div>
+                                Come on... we don't phish &#128580;, we however report those who do &#128526;.
+                                <span className='spanYellow'></span>
+                            </div>
+                        )}
                         {domain && !absoluteUrl && (
                             <div>
-                                * Url should start with protocol ie{' '}
-                                <span style={{ color: 'yellow' }}> http, https ...</span>
+                                * Url should start with protocol ie <span className='spanYellow'> http, https ...</span>
                             </div>
                         )}
                         {absoluteUrl && domain && !validDomain && (
                             <div>
-                                *<span style={{ color: 'yellow' }}> {domain}</span> is not a valid domain
+                                *<span className='spanYellow'> {domain}</span> is not a valid domain
                             </div>
                         )}
                         {absoluteUrl && validDomain && swearWord && (

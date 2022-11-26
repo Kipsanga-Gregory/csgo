@@ -1,7 +1,6 @@
 import axiosInstance from './axios'
 
-let swearWords = ['spider', 'monkey', 'pig']
-
+const swearWords = process.env.REACT_APP_SWEAR_WORDS.split(',')
 export const reportUrl = async (domain) => {
     const { data } = await axiosInstance.post('/reportDomain', { domain: domain })
     console.log(data)
