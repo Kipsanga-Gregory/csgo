@@ -41,14 +41,13 @@ header {
 .testdomain {
     height: 3.2em;
     width: 400px;
-    line-height: 20px;
-    vertical-align: middle;
     border-radius: 4px;
     display: flex;
     margin-right: 8px;
     display: flex;
     justify-content: center;
-    padding: 4px;
+    font-size: 16px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
     border: 1px solid transparent;
 }
@@ -59,7 +58,7 @@ header {
 }
 .button {
     width: 110px;
-    height: 3.2em;
+    height: 3.7em;
     line-height: 20px;
     vertical-align: middle;
     background: #008060;
@@ -80,6 +79,12 @@ header {
     align-items: flex-start;
     min-height: 90vh;
     margin: 70px auto auto auto;
+}
+
+.infoSection {
+    color: antiquewhite;
+    font-size: 22px;
+    margin: 30px;
 }
 
 .message {
@@ -133,5 +138,69 @@ li a {
     }
     to {
         transform: rotate(360deg);
+    }
+}
+
+.loader {
+    margin-bottom: 80px;
+    width: 184px;
+    height: 184px;
+    border-radius: 50%;
+    perspective: 800px;
+}
+
+.inner {
+    position: absolute;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.inner.one {
+    left: 0%;
+    top: 0%;
+    animation: rotate-one 1s linear infinite;
+    border-bottom: 3px solid yellow;
+}
+
+.inner.two {
+    right: 0%;
+    top: 0%;
+    animation: rotate-two 1s linear infinite;
+    border-right: 3px solid yellow;
+}
+
+.inner.three {
+    right: 0%;
+    bottom: 0%;
+    animation: rotate-three 1s linear infinite;
+    border-top: 3px solid yellow;
+}
+
+@keyframes rotate-one {
+    0% {
+        transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+    }
+}
+
+@keyframes rotate-two {
+    0% {
+        transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+    }
+}
+
+@keyframes rotate-three {
+    0% {
+        transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
     }
 }

@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const path = require('path')
 const bodyParser = require('body-parser')
 const { saveDomain, isDomainReported, updateDomainsCache } = require('./helpers')
@@ -13,6 +14,7 @@ const staticFiles = express.static(path.join(__dirname, '../client/build'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(staticFiles)
+app.use(cors())
 
 app.use('/*', staticFiles)
 
@@ -29,10 +31,10 @@ app.post('/reportDomain', async (req, res) => {
         spawnProcess.stdout.on('data', (data) => {
             console.log('Data received from python', data.toString())
             saveDomain(req.body.domain)
-            res.send({ message: data.toString() })
+            res.send({ message: 'Success' })
         })
     } catch (error) {
-        res.send({ message: 'failed' })
+        res.send({ message: 'Could not blacklist domain at the moment, please try again later.' })
     }
 })
 

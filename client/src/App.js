@@ -1,94 +1,149 @@
 import logo from './logo.svg'
 import './App.css'
 import { useEffect, useState } from 'react'
+import { filterSwearWords, absolute_url, isValidURL, reportUrl } from './functions/helpers'
 
-// Check for spam from user (if they send a lot in short period of time)                    DONEDONE
+const botHumanThreshold = 3
+const timeBeforeTrial = 60
+let interval
+
 function App() {
-    let swearWords = ['spider', 'monkey', 'pig']
     const [domain, setDomain] = useState('')
     const [swearWord, setSwearWord] = useState('')
     const [validDomain, setValidDomain] = useState(true)
-
-    function filterSwearWords(str) {
-        let words = []
-        swearWords.forEach((word) =>
-            str.replace(/ /g, '').toLowerCase().includes(word.replace(/ /g, '').toLowerCase()) ? words.push(word) : null
-        )
-        return words
-    }
-
-    function isValidURL(string) {
-        const res = string.match(
-            /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
-        )
-        return res !== null
-    }
-
-    function absolute_url(url) {
-        const patternS = /^https:\/\//i
-        const pattern = /^http:\/\//i
-
-        if (pattern.test(url) || patternS.test(url)) {
-            console.log('Valid url')
-        } else {
-            console.log('Invalid url')
-        }
-    }
+    const [absoluteUrl, setAbsolute] = useState(true)
+    const [success, setSuccess] = useState(false)
+    const [errors, setErrors] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [count, setCount] = useState(0)
+    const [abuse, setAbuse] = useState(false)
+    const [countDown, setCountDown] = useState(timeBeforeTrial)
 
     useEffect(() => {
+        setErrors('')
+        if (!absolute_url(domain)) {
+            setAbsolute(false)
+        } else {
+            setAbsolute(true)
+        }
+
         if (filterSwearWords(domain)[0]) {
             setSwearWord(filterSwearWords(domain).join(', '))
+        } else {
+            setSwearWord('')
         }
         if (!isValidURL(domain)) {
-            console.log('Domain not valid')
             setValidDomain(false)
+            absolute_url(domain)
         } else {
-            console.log('Domain is valid')
             setValidDomain(true)
             absolute_url(domain)
         }
     }, [domain])
 
+    useEffect(() => {
+        if (abuse) {
+            setTimeout(() => {
+                setAbuse(false)
+                setCountDown(60)
+                setCount(0)
+                clearInterval(interval)
+            }, 60000)
+            interval = setInterval(() => {
+                setCountDown((prev) => prev - 1)
+            }, 1000)
+        }
+    }, [abuse])
+
+    const submitDomain = async (e) => {
+        e.preventDefault()
+        if (abuse) {
+            return
+        }
+        if (count >= botHumanThreshold) {
+            console.log('sUBMited bots')
+            setAbuse(true)
+            return
+        }
+        if (absoluteUrl && validDomain && !swearWord) {
+            setLoading(true)
+            setCount(count + 1)
+            const result = await reportUrl(domain)
+            setLoading(false)
+            if (result.message !== 'Success') {
+                setErrors(result.message)
+                return
+            }
+            setSuccess(true)
+            setTimeout(() => {
+                setSuccess(false)
+            }, 7000)
+            return
+        }
+        console.group('Not valid to be sent')
+    }
+
     return (
         <div className='container'>
             <div class='navbar'>{/* <header> CSGO Report</header> */}</div>
-            <div class='main'>
-                <div class='message'>
-                    <p>Report a domain involved in phishing or any other illegalities</p>
+            {loading ? (
+                <div class='main'>
+                    <div class='message'>
+                        <div class='loader'>
+                            <div class='inner one'></div>
+                            <div class='inner two'></div>
+                            <div class='inner three'></div>
+                        </div>
+                    </div>
+                    <div class='message'>Adding the domain to blacklist, please wait ...</div>
                 </div>
-                <div class='form'>
-                    <form action='' class='form'>
-                        <input type='text' placeholder='Enter Domain Name...' class='testdomain' />
-                        <button value='Submit' class='button'>
-                            {' '}
-                            Submit{' '}
-                        </button>
-                    </form>
+            ) : (
+                <div class='main'>
+                    <div class='message'>
+                        <p>Report a domain involved in phishing or any other illegalities</p>
+                    </div>
+                    <div class='form'>
+                        <form action='' class='form'>
+                            <input
+                                type='text'
+                                placeholder='Enter Domain Name...'
+                                class='testdomain'
+                                onChange={(e) => setDomain(e.target.value)}
+                            />
+
+                            <button value='Submit' class='button' onClick={(e) => submitDomain(e)}>
+                                {' '}
+                                Submit{' '}
+                            </button>
+                        </form>
+                    </div>
+                    <div className='infoSection'>
+                        {success && <div style={{ color: 'yellow' }}>Domain reported successfully.</div>}
+                        {errors && <div>* {errors}</div>}
+                        {domain && !absoluteUrl && (
+                            <div>
+                                * Url should start with protocol ie{' '}
+                                <span style={{ color: 'yellow' }}> http, https ...</span>
+                            </div>
+                        )}
+                        {absoluteUrl && domain && !validDomain && (
+                            <div>
+                                *<span style={{ color: 'yellow' }}> {domain}</span> is not a valid domain
+                            </div>
+                        )}
+                        {absoluteUrl && validDomain && swearWord && (
+                            <div>
+                                * Words like
+                                <span style={{ color: 'red' }}> {swearWord} </span>
+                                are not allowed
+                            </div>
+                        )}
+                        {abuse && <div>* Too frequent reports received, try again after {countDown} Secs.</div>}
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     )
-    // return (
-    //     <div className='App'>
-    //         <header className='appHeader'></header>
-    //         <div className='container'>
-    //             <input className='inputSection domainInput' onChange={(e) => setDomain(e.target.value)} />
-    //             <div className='inputSection SubmitButton'>Report Domain</div>
-    //         </div>
-    //         {domain && !validDomain && (
-    //             <div>
-    //                 <span style={{ color: 'yellow' }}>{domain}</span> is not a valid Domain
-    //             </div>
-    //         )}
-    //         {!validDomain && swearWord && (
-    //             <div>
-    //                 Words like
-    //                 <span style={{ color: 'red' }}> {swearWord} </span>
-    //                 are not allowed
-    //             </div>
-    //         )}
-    //     </div>
-    // )
 }
 
 export default App
