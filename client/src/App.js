@@ -50,26 +50,45 @@ function App() {
     }, [domain])
 
     return (
-        <div className='App'>
-            <header className='appHeader'></header>
-            <div className='container'>
-                <input className='inputSection domainInput' onChange={(e) => setDomain(e.target.value)} />
-                <div className='inputSection SubmitButton'>Report Domain</div>
+        <div className='container'>
+            <div class='navbar'>{/* <header> CSGO Report</header> */}</div>
+            <div class='main'>
+                <div class='message'>
+                    <p>Report a domain involved in phishing or any other illegalities</p>
+                </div>
+                <div class='form'>
+                    <form action='' class='form'>
+                        <input type='text' placeholder='Enter Domain Name...' class='testdomain' />
+                        <button value='Submit' class='button'>
+                            {' '}
+                            Submit{' '}
+                        </button>
+                    </form>
+                </div>
             </div>
-            {domain && !validDomain && (
-                <div>
-                    <span style={{ color: 'yellow' }}>{domain}</span> is not a valid Domain
-                </div>
-            )}
-            {!validDomain && swearWord && (
-                <div>
-                    Words like
-                    <span style={{ color: 'red' }}> {swearWord} </span>
-                    are not allowed
-                </div>
-            )}
         </div>
     )
+    // return (
+    //     <div className='App'>
+    //         <header className='appHeader'></header>
+    //         <div className='container'>
+    //             <input className='inputSection domainInput' onChange={(e) => setDomain(e.target.value)} />
+    //             <div className='inputSection SubmitButton'>Report Domain</div>
+    //         </div>
+    //         {domain && !validDomain && (
+    //             <div>
+    //                 <span style={{ color: 'yellow' }}>{domain}</span> is not a valid Domain
+    //             </div>
+    //         )}
+    //         {!validDomain && swearWord && (
+    //             <div>
+    //                 Words like
+    //                 <span style={{ color: 'red' }}> {swearWord} </span>
+    //                 are not allowed
+    //             </div>
+    //         )}
+    //     </div>
+    // )
 }
 
 export default App
