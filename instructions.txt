@@ -1,0 +1,13 @@
+Extract the compressed files and cd into the CSGO folder
+
+Asuming you have python3, nodejs and reactjs installed in the testing computer
+If above is met proceed as below
+
+cd csgo/client and run below commands
+    npm install
+    npm run build
+cd csgo/server and run below commands
+    npm install
+    npm start
+
+them open localhost:4000 in the browser and the site frontend will load
