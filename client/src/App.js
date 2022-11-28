@@ -151,15 +151,17 @@ function App() {
                         )}
                         {abuse && <div>* Too frequent reports received, try again after {countDown} Secs.</div>}
                     </div>
-          
                 </div>
-                
             )}
-           <div className='footer'>
+            <div className='footer'>
                 <div className='footerNote'>
-                    This project was made to kill CS:GO scummy websites!
-                    If you find any phishing/fake sites just insert the domain name (https://example.com) and our tool will take the measures to take it down!
-                    <br></br>Donations ETH - 0xc2A0fa61c8B3DC0D3De97CAe21570da75cf5116D keep the project alive ❤️
+                    This project was made to kill CS:GO scummy websites! If you find any phishing/fake sites just insert
+                    the domain name (https://example.com) and our tool will take the measures to take it down!
+                    <br></br>
+                </div>
+                <div className='dons'>
+                    Donations ETH -<span className='donations'>0xc2A0fa61c8B3DC0D3De97CAe21570da75cf5116D </span>
+                    keep the project alive ❤️
                 </div>
             </div>
         </div>
