@@ -1,8 +1,5 @@
 body {
     min-height: 100%;
-    overflow: hidden;
-    background-size: stretch;
-    background-repeat: no-repeat;
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -10,7 +7,6 @@ body {
 }
 .container {
     min-height: 100%;
-    overflow: hidden;
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -248,12 +244,6 @@ li a {
     }
 }
 
-@media only screen and (max-width: 2000px) {
-    body {
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
-}
 @media only screen and (max-width: 720px) {
     .container {
         display: flex;
@@ -264,19 +254,43 @@ li a {
         font-size: 35px;
         width: 80%;
     }
-    .footerNote {
-        /* font-size: 10px; */
 
-        align-self: center;
+    .footerNote {
+        color: antiquewhite;
+        margin-left: 20px;
+        margin-right: 20px;
+        font-size: 18px;
+        height: auto;
     }
     .footer {
-        height: 100px;
-        bottom: 0;
         position: absolute;
-        line-height: 8px;
-        display: flex;
-        flex-direction: column;
+        height: auto;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-bottom: 30px;
+        width: 100%;
+        margin: 0px;
+        bottom: 0;
+        left: 0;
+        background-color: #012d2c;
     }
+
+    .donations {
+        color: yellow;
+        font-weight: bold;
+        word-wrap: break-word;
+    }
+
+    .dons {
+        color: antiquewhite;
+        font-size: 20px;
+        margin-top: 0px;
+        word-wrap: break-word;
+        background-color: #012d2c;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
     .message {
         font-size: 35px;
         width: 100%;
