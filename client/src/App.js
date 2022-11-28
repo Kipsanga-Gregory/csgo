@@ -91,7 +91,6 @@ function App() {
 
     return (
         <div className='container'>
-            <div className='navbar'>{/* <header> CSGO Report</header> */}</div>
             {loading ? (
                 <div className='main'>
                     <div className='message'>
@@ -105,8 +104,8 @@ function App() {
                 </div>
             ) : (
                 <div className='main'>
-                    <div className='message'>
-                        <p>Report a domain involved in phishing or any other illegalities</p>
+                    <div className='message1'>
+                        <p>CSGOReport.net</p>
                     </div>
                     <div className='form'>
                         <form action='' className='form'>
@@ -120,7 +119,7 @@ function App() {
 
                             <button value='Submit' className='button' onClick={(e) => submitDomain(e)}>
                                 {' '}
-                                Submit{' '}
+                                Report Fake Website{' '}
                             </button>
                         </form>
                     </div>
@@ -152,8 +151,17 @@ function App() {
                         )}
                         {abuse && <div>* Too frequent reports received, try again after {countDown} Secs.</div>}
                     </div>
+          
                 </div>
+                
             )}
+           <div className='footer'>
+                <div className='footerNote'>
+                    This project was made to kill CS:GO scummy websites!
+                    If you find any phishing/fake sites just insert the domain name (https://example.com) and our tool will take the measures to take it down!
+                    <br></br>Donations ETH - 0xc2A0fa61c8B3DC0D3De97CAe21570da75cf5116D keep the project alive ❤️
+                </div>
+            </div>
         </div>
     )
 }
