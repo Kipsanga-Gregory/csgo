@@ -36,7 +36,7 @@ NAME = 'csgoreport'
 EMAIL = 'csgoautoreport@proton.me'
 TITLE = 'CSGOReport Phishing Website'
 COMPANY = 'csgoreport'
-evidence_url = sys.argv[1]
+# evidence_url = sys.argv[1]
 evidence_url = 'http://testing.com'
 LOGS = 'This domain is used for phishing purposes. \
 Site contain phishing Steam login page stealing users credentials. \
