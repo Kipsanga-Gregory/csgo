@@ -3,11 +3,17 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.chrome.options import Options
 import sys
 from time import sleep
 
 
-s = Service(r'chromedriver.exe')        # <--- ENTER THE PATH OF CHROMEDRIVER.EXE HERE
+options = Options()
+options.headless = True
+s = webdriver.Chrome("/usr/bin/chromedriver", options=options)
+
+
+# s = Service(r'chromedriver.exe')        # <--- ENTER THE PATH OF CHROMEDRIVER.EXE HERE
 BASE_URL = 'https://abuse.cloudflare.com/phishing'
 
 
