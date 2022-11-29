@@ -7,7 +7,7 @@ import sys
 from time import sleep
 
 
-s = Service(r'chromedriver.exe')        # <--- ENTER THE PATH OF CHROMEDRIVER.EXE HERE
+s = Service(r'/usr/bin/chromedriver')        # <--- ENTER THE PATH OF CHROMEDRIVER.EXE HERE
 
 BASE_URL = 'https://abuse.cloudflare.com/phishing'
 
