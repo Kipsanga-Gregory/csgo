@@ -7,8 +7,9 @@ import sys
 from time import sleep
 
 
-s = Service(r'/usr/bin/chromedriver')        # <--- ENTER THE PATH OF CHROMEDRIVER.EXE HERE
 
+
+s = Service(r'chromedriver.exe')        # <--- ENTER THE PATH OF CHROMEDRIVER.EXE HERE
 BASE_URL = 'https://abuse.cloudflare.com/phishing'
 
 
@@ -28,8 +29,8 @@ NAME = 'csgoreport'
 EMAIL = 'csgoautoreport@proton.me'
 TITLE = 'CSGOReport Phishing Website'
 COMPANY = 'csgoreport'
-evidence_url = 'http://testing.com'
 # evidence_url = sys.argv[1]
+evidence_url = 'http://testing.com'
 LOGS = 'This domain is used for phishing purposes. \
 Site contain phishing Steam login page stealing users credentials. \
 If a victim clicks the “Sign in via Steam” button, it will pretend to open the login form from Steam, \
