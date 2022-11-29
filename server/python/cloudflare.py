@@ -12,7 +12,7 @@ chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--window-size=1420,1080')
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('--disable-gpu')
-s = webdriver.Chrome(chrome_options=chrome_options)
+driver = webdriver.Chrome(chrome_options=chrome_options)
 
 
 
@@ -48,7 +48,7 @@ This report was generated automatically from csgoreport.net , helping users from
 
 
 # start chrome
-driver = webdriver.Chrome(service=s)
+# driver = webdriver.Chrome(service=s)
 driver.maximize_window()
 driver.get(BASE_URL)
 driver.implicitly_wait(10)
