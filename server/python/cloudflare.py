@@ -12,7 +12,7 @@ chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--window-size=1420,1080')
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('--disable-gpu')
-driver = webdriver.Chrome(chrome_options=chrome_options)
+driver = webdriver.Chrome(options=chrome_options)
 
 
 
@@ -36,7 +36,7 @@ NAME = 'csgoreport'
 EMAIL = 'csgoautoreport@proton.me'
 TITLE = 'CSGOReport Phishing Website'
 COMPANY = 'csgoreport'
-# evidence_url = sys.argv[1]
+evidence_url = sys.argv[1]
 evidence_url = 'http://testing.com'
 LOGS = 'This domain is used for phishing purposes. \
 Site contain phishing Steam login page stealing users credentials. \
