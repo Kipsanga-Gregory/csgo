@@ -48,7 +48,7 @@ This report was generated automatically from csgoreport.net , helping users from
 
 
 # start chrome
-driver = webdriver.Chrome(service=s)
+driver = webdriver.Chrome("/usr/lib/chromium-browser/chromedriver")
 driver.maximize_window()
 driver.get(BASE_URL)
 driver.implicitly_wait(10)
